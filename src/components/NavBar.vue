@@ -1,6 +1,8 @@
 <template>
-  <header class="sticky top-0 left-0">
-    <nav class="bg-zinc-900 min-h-fit min-w-full">
+  <header class="sticky top-0 left-0 z-10">
+    <nav
+      class="min-h-fit min-w-full bg-zinc-900 border-b-[1px] border-zinc-700"
+    >
       <ul class="flex py-2 md:w-11/12 md:mx-auto md:max-w-[70rem]">
         <li>
           <router-link :to="{ name: 'home' }" class="nav-button"
@@ -8,13 +10,13 @@
           >
         </li>
         <li class="ml-auto">
-          <router-link :to="{ name: 'home' }" class="nav-button"
+          <router-link :to="{ name: 'signin' }" class="nav-button"
             >Sign In</router-link
           >
         </li>
         <li>
           <router-link
-            :to="{ name: 'home' }"
+            :to="{ name: 'signup' }"
             class="signup bg-matte-blue text-white rounded-xl hover:bg-white hover:text-matte-medium-blue"
             >Sign Up</router-link
           >
@@ -35,9 +37,9 @@ export default defineComponent({
 <style lang="postcss" scoped>
 .nav-button,
 .signup {
-  @apply inline-block text-white p-2 font-semibold mx-2;
+  @apply inline-block text-zinc-200 p-2 font-semibold mx-2;
 }
 .nav-button:hover {
-  @apply bg-matte-blue text-white rounded-xl;
+  @apply bg-matte-blue text-zinc-200 rounded-xl;
 }
 </style>
