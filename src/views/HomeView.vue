@@ -15,6 +15,7 @@
         <br />
         <a
           :href="shortUrl"
+          target="_blank"
           class="text-matte-light-blue hover:underline hover:text-white"
           >{{ shortUrl }}</a
         >
@@ -57,7 +58,7 @@ export default defineComponent({
       const baseUrl = process.env.VUE_APP_API_URL ?? 'http://localhost:3000'
       try {
         this.disabled = true
-        const response = await fetch(`${baseUrl}/api/v1/url/short`, {
+        const response = await fetch(`${baseUrl}/url/short`, {
           method: 'POST',
           headers: [['Content-Type', 'application/json']],
           body: JSON.stringify({

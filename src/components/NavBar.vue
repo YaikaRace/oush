@@ -9,18 +9,27 @@
             >Home</router-link
           >
         </li>
-        <li class="ml-auto">
-          <router-link :to="{ name: 'signin' }" class="nav-button"
-            >Sign In</router-link
-          >
-        </li>
-        <li>
-          <router-link
-            :to="{ name: 'signup' }"
-            class="signup bg-matte-blue text-white rounded-xl hover:bg-white hover:text-matte-medium-blue"
-            >Sign Up</router-link
-          >
-        </li>
+        <div v-if="!userData" class="ml-auto flex">
+          <li>
+            <router-link :to="{ name: 'signin' }" class="nav-button"
+              >Sign In</router-link
+            >
+          </li>
+          <li>
+            <router-link
+              :to="{ name: 'signup' }"
+              class="signup bg-matte-blue text-white rounded-xl hover:bg-white hover:text-matte-medium-blue"
+              >Sign Up</router-link
+            >
+          </li>
+        </div>
+        <div v-else class="ml-auto flex text-zinc-200 p-2 font-semibold mx-2">
+          <li>
+            <router-link :to="{ name: 'dashboard' }" class="nav-button">{{
+              userData.username
+            }}</router-link>
+          </li>
+        </div>
       </ul>
     </nav>
   </header>
@@ -28,9 +37,13 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { mapState } from 'vuex'
 
 export default defineComponent({
-  name: 'NavBar'
+  name: 'NavBar',
+  computed: {
+    ...mapState(['userData'])
+  }
 })
 </script>
 

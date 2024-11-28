@@ -1,3 +1,4 @@
+import store from '@/store'
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
@@ -23,6 +24,14 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: () => import('@/views/UserDashboard.vue'),
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
     path: '/r/:id',
     name: 'redirect',
     component: () => import('@/views/RedirectView.vue')
@@ -37,6 +46,16 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, _from, next) => {
+  if (to.meta.notAuth && store.state.loggedIn) {
+    return next({ name: 'home', replace: true })
+  }
+  if (to.meta.requireAuth && !store.state.loggedIn) {
+    return next({ name: 'login', replace: true })
+  }
+  next()
 })
 
 export default router

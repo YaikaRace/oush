@@ -39,7 +39,7 @@ export default defineComponent({
       return
     }
     try {
-      const response = await fetch(`${baseUrl}/api/v1/url/redirect/${id}`)
+      const response = await fetch(`${baseUrl}/url/redirect/${id}`)
       const json = await response.json()
       console.log(json)
       if (!json.success) {
