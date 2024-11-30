@@ -3,7 +3,7 @@
     <nav
       class="min-h-fit min-w-full bg-zinc-900 border-b-[1px] border-zinc-700"
     >
-      <ul class="flex py-2 md:w-11/12 md:mx-auto md:max-w-[70rem]">
+      <ul class="flex py-2 md:w-11/12 md:mx-auto md:max-w-[70rem] items-center">
         <li>
           <router-link :to="{ name: 'home' }" class="nav-button"
             >Home</router-link

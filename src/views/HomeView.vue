@@ -98,23 +98,19 @@ export default defineComponent({
   @apply transition-all duration-200;
 }
 article {
-  background: radial-gradient(circle, rgb(39 39 42 / 0.25) 10%, transparent 11%),
+  background: radial-gradient(circle, rgb(39 39 42 / 0.3) 10%, transparent 11%),
     radial-gradient(
       circle at bottom left,
-      rgb(39 39 42 / 0.25) 5%,
+      rgb(39 39 42 / 0.3) 5%,
       transparent 6%
     ),
     radial-gradient(
       circle at bottom right,
-      rgb(39 39 42 / 0.25) 5%,
+      rgb(39 39 42 / 0.3) 5%,
       transparent 6%
     ),
-    radial-gradient(circle at top left, rgb(39 39 42 / 0.25) 5%, transparent 6%),
-    radial-gradient(
-      circle at top right,
-      rgb(39 39 42 / 0.25) 5%,
-      transparent 6%
-    );
+    radial-gradient(circle at top left, rgb(39 39 42 / 0.3) 5%, transparent 6%),
+    radial-gradient(circle at top right, rgb(39 39 42 / 0.3) 5%, transparent 6%);
   background-size: 3em 3em;
   background-color: #18181b;
   opacity: 1;

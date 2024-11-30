@@ -91,7 +91,6 @@ export default defineComponent({
           return
         }
         this.loading = false
-        console.log(json.data)
         store.commit('setUserData', json.data.user)
         this.$router.replace({ name: 'home' })
       } catch {

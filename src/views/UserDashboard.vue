@@ -1,17 +1,13 @@
 <template>
-  <article class="px-4">
+  <article class="px-4 pt-8">
     <section>
       <div v-for="(url, index) in urls" :key="index">
-        <a target="_blank" :href="getBaseUrl + '/r/' + url.short">{{
-          getBaseUrl + '/r/' + url.short
-        }}</a>
-        <div class="relative inline-block">
-          <button @click="copyUrl(getBaseUrl + '/r/' + url.short)">
-            <i
-              class="fa-solid fa-copy ml-3 text-zinc-300 hover:text-matte-light-blue"
-            ></i>
-          </button>
-        </div>
+        <UrlCard
+          :short-id="url.short"
+          :long-url="url.url"
+          :loading="loading"
+          @delete="deleteUrl(url.short)"
+        />
       </div>
     </section>
     <button class="btn" @click.prevent="reload" :disabled="loading">
@@ -21,20 +17,19 @@
 </template>
 
 <script lang="ts">
+import UrlCard from '@/components/UrlCard.vue'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'UserDashboard',
+  components: {
+    UrlCard
+  },
   data() {
     return {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       urls: [] as any[],
       loading: false
-    }
-  },
-  computed: {
-    getBaseUrl() {
-      return window.location.origin
     }
   },
   methods: {
@@ -61,8 +56,19 @@ export default defineComponent({
         this.urls = []
       }
     },
-    copyUrl(url: string) {
-      navigator.clipboard.writeText(url)
+    async deleteUrl(shortId: string) {
+      try {
+        const baseUrl = process.env.VUE_APP_API_URL
+        if (!baseUrl) return
+        const result = await fetch(`${baseUrl}/url/delete/${shortId}`, {
+          method: 'DELETE',
+          credentials: 'include'
+        })
+        const json = await result.json()
+        if (json.success) {
+          this.reload()
+        }
+      } catch {}
     }
   },
   async created() {
@@ -77,9 +83,6 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
-a {
-  @apply text-matte-light-blue py-4;
-}
 .btn {
   @apply bg-matte-light-blue p-2 rounded-lg text-zinc-200 my-10 disabled:bg-matte-medium-blue disabled:text-zinc-500 disabled:cursor-not-allowed;
 }
