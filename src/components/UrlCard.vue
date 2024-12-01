@@ -1,6 +1,6 @@
 <template>
   <article
-    class="border-2 border-zinc-700 rounded-lg p-4 w-full max-w-xs mx-auto bg-zinc-900"
+    class="border-2 border-zinc-700 rounded-2xl p-4 w-full max-w-xs mx-auto bg-zinc-900"
   >
     <header class="text-3xl flex items-center justify-center">
       <h1>
@@ -17,15 +17,10 @@
         ></i>
       </button>
     </header>
-    <section class="mt-4 text-zinc-400">
-      <h2 class="underline flex items-center">
-        <a
-          target="_blank"
-          :href="longUrl"
-          class="inline-block overflow-hidden overflow-ellipsis max-w-full"
-          >{{ longUrl }}
-        </a>
-        <a target="_blank" :href="longUrl"
+    <section class="mt-4">
+      <h2 class="flex items-center">
+        <a target="_blank" :href="longUrl" class="long">{{ longUrl }} </a>
+        <a target="_blank" :href="longUrl" class="long-icon text-zinc-400"
           ><i class="fa-solid fa-arrow-up-right-from-square ml-2"></i
         ></a>
       </h2>
@@ -97,6 +92,18 @@ export default defineComponent({
 
 <style lang="postcss" scoped>
 .short {
-  @apply text-matte-light-blue py-4;
+  @apply text-matte-light-blue py-4 hover:underline;
+}
+.long {
+  @apply text-zinc-400 inline-block overflow-hidden overflow-ellipsis max-w-full underline hover:text-matte-light-blue hover:no-underline;
+}
+.long:hover + .long-icon {
+  @apply text-matte-light-blue;
+}
+.long-icon:hover ~ .long {
+  @apply text-matte-light-blue no-underline;
+}
+.long-icon:hover {
+  @apply text-matte-light-blue no-underline;
 }
 </style>
