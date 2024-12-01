@@ -3,7 +3,7 @@
     class="fixed top-0 left-0 w-full h-dvh bg-zinc-950 z-10 bg-opacity-60 flex justify-center items-center"
   >
     <article class="bg-zinc-900 text-zinc-300 p-4 rounded-2xl">
-      <form @submit.prevent="$emit('updated', { short, url })">
+      <form @submit.prevent="$emit('updated', { shortId, short, url })">
         <label for="short">Short URL ID</label>
         <input
           id="short"

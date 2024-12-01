@@ -34,7 +34,7 @@ export default defineComponent({
   async mounted() {
     const id = this.$route.params.id
     const baseUrl = process.env.VUE_APP_API_URL
-    if (!id || !baseUrl || id.length !== 8) {
+    if (!id || !baseUrl || id.length < 8) {
       this.error = true
       return
     }

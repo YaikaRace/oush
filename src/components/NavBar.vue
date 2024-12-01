@@ -55,4 +55,7 @@ export default defineComponent({
 .nav-button:hover {
   @apply bg-matte-blue text-zinc-200 rounded-xl;
 }
+.router-link-exact-active {
+  @apply border-b-2 rounded-xl border-matte-light-blue text-matte-light-blue;
+}
 </style>

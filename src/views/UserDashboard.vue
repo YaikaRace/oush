@@ -1,18 +1,28 @@
 <template>
   <article class="px-4 pt-8">
+    <header>
+      <h1 class="text-zinc-300 text-4xl font-bold text-center mb-8">My URLs</h1>
+    </header>
     <section>
-      <div v-for="(url, index) in urls" :key="index">
+      <div
+        class="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-4 object-center"
+      >
         <UrlCard
+          v-for="(url, index) in urls"
+          :key="index"
           :short-id="url.short"
           :long-url="url.url"
           :loading="loading"
           @delete="deleteUrl(url.short)"
+          @update="(v) => updateUrl(url.short, url.url, v)"
         />
       </div>
     </section>
-    <button class="btn" @click.prevent="reload" :disabled="loading">
-      Reload
-    </button>
+    <footer class="flex justify-center">
+      <button class="btn" @click.prevent="reload" :disabled="loading">
+        Reload
+      </button>
+    </footer>
   </article>
 </template>
 
@@ -57,6 +67,7 @@ export default defineComponent({
       }
     },
     async deleteUrl(shortId: string) {
+      this.loading = true
       try {
         const baseUrl = process.env.VUE_APP_API_URL
         if (!baseUrl) return
@@ -69,6 +80,39 @@ export default defineComponent({
           this.reload()
         }
       } catch {}
+      this.loading = false
+    },
+    async updateUrl(
+      shortId: string,
+      previousUrl: string,
+      payload: { short: string; url: string }
+    ) {
+      this.loading = true
+      try {
+        const baseUrl = process.env.VUE_APP_API_URL
+        if (!baseUrl) return
+        if (shortId === payload.short && previousUrl === payload.url) {
+          this.loading = false
+          return
+        }
+        const { short, url } = payload
+        const newShort = short === shortId ? undefined : short
+        const newUrl = url === previousUrl ? undefined : url
+        const result = await fetch(`${baseUrl}/url/update/${shortId}`, {
+          method: 'PATCH',
+          credentials: 'include',
+          headers: [['Content-Type', 'application/json']],
+          body: JSON.stringify({
+            short: newShort,
+            url: newUrl
+          })
+        })
+        const json = await result.json()
+        if (json.success) {
+          this.reload()
+        }
+      } catch {}
+      this.loading = false
     }
   },
   async created() {

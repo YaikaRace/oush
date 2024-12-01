@@ -1,6 +1,6 @@
 <template>
   <article
-    class="border-2 border-zinc-700 rounded-lg p-4 w-full max-w-[14rem] mx-auto mt-8 bg-zinc-900"
+    class="border-2 border-zinc-700 rounded-lg p-4 w-full max-w-xs mx-auto bg-zinc-900"
   >
     <header class="text-3xl flex items-center justify-center">
       <h1>
@@ -44,7 +44,12 @@
         :short-id="shortId"
         :long-url="longUrl"
         @cancel="modal = false"
-        @updated="(v) => $emit('update', v)"
+        @updated="
+          (v) => {
+            $emit('update', v)
+            modal = false
+          }
+        "
       />
       <button
         :disabled="loading"
